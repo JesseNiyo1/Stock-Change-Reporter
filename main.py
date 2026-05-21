@@ -27,7 +27,6 @@ def check_stock_change(stock, company):
     response.raise_for_status()
 
     data = response.json()
-    print(data)
 
     # Handle Alpha Vantage rate limit / errors
     if "Time Series (Daily)" not in data:
@@ -81,7 +80,7 @@ def get_company_news(company):
 def send_text_message(company, delta, articles):
     print(f"Sending text message for {company}")
     client = Client(ACCOUNT_SID, AUTH_TOKEN)
-    body = f"{company.upper()}: {delta * 100}%\n"
+    body = f"{company.upper()}: {delta}%\n"
     for article in articles:
         body += f"Headline: {article}\nBrief: {articles[article]}\n\n"
 
