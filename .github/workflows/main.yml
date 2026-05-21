@@ -3,10 +3,10 @@ name: Stock News Alerts
 on:
   schedule:
     # EST
-    - cron: "30 15 * * 1-5"
+    - cron: "30 13 * * 1-5"
 
     # EDT
-    - cron: "30 14 * * 1-5"
+    - cron: "30 12 * * 1-5"
 
   workflow_dispatch:
 
