@@ -1,0 +1,39 @@
+name: Stock News Alerts
+
+on:
+  schedule:
+    # EST
+    - cron: "30 15 * * 1-5"
+
+    # EDT
+    - cron: "30 14 * * 1-5"
+
+  workflow_dispatch:
+
+jobs:
+  run-stock-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run stock alert script
+        env:
+          ALPHAVANTAGE_API_KEI: ${{ secrets.ALPHAVANTAGE_API_KEI }}
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+          ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          MY_PHONE_NUMBER: ${{ secrets.MY_PHONE_NUMBER }}
+          MY_TRIAL_PHONE_NUMBER: ${{ secrets.MY_TRIAL_PHONE_NUMBER }}
+        run: |
+          python main.py
